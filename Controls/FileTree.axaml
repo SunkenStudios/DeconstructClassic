@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+			 d:DesignWidth="364"
+			 d:DesignHeight="684"
+             x:Class="DeconstructClassic.FileTree">
+	<TreeView x:Name="FileTreeView" Padding="8" SelectionChanged="TreeView_SelectionChanged">
+		<TreeViewItem Header="TestItem1"/>
+		<TreeViewItem Header="TestItem2"/>
+		<TreeViewItem Header="TestItem3"/>
+		<TreeViewItem Header="TestItem4"/>
+		<TreeViewItem Header="TestItem5">
+			<TreeViewItem Header="TestItem6"/>
+			<TreeViewItem Header="TestItem7"/>
+			<TreeViewItem Header="TestItem8"/>
+			<TreeViewItem Header="TestItem9"/>
+		</TreeViewItem>
+	</TreeView>
+</UserControl>

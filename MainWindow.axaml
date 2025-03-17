@@ -2,8 +2,35 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:local="using:DeconstructClassic"
+        mc:Ignorable="d"
+		d:DesignWidth="1280"
+		d:DesignHeight="720"
         x:Class="DeconstructClassic.MainWindow"
-        Title="DeconstructClassic">
-    Welcome to Avalonia!
+        Title="DeconstructClassic"
+		WindowStartupLocation="CenterScreen"
+        TransparencyLevelHint="AcrylicBlur"
+        Background="#C0040006"
+		ExtendClientAreaToDecorationsHint="True">
+	<Window.Styles>
+		<Style Selector="Window[WindowState=Maximized]">
+			<Setter Property="Padding" Value="8" />
+		</Style>
+	</Window.Styles>
+	<DockPanel>
+		<Grid DockPanel.Dock="Top">
+			<Menu Background="{x:Null}">
+				<MenuItem Header="DeConstruct Classic" IsHitTestVisible="False" IsEnabled="False" BorderBrush="{DynamicResource SemiColorBackground1}" BorderThickness="0,0,1,0"/>
+				<MenuItem Header="_File">
+					<MenuItem x:Name="OpenFile" Header="_Open" HotKey="Ctrl+O" InputGesture="Ctrl+O" Click="MenuItem_Click"/>
+				</MenuItem>
+			</Menu>
+			<Border BorderBrush="{DynamicResource SemiColorBackground1}" BorderThickness="0,0,0,1" PointerPressed="Menu_PointerPressed"/>
+		</Grid>
+		<Grid ColumnDefinitions="2*,1,5*">
+			<local:FileTree x:Name="FileTree"/>
+			<GridSplitter Grid.Column="1" ResizeDirection="Columns"/>
+			<Border Grid.Column="2" x:Name="ContentPanel"/>
+		</Grid>
+	</DockPanel>
 </Window>
