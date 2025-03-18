@@ -14,5 +14,34 @@
             Number,
             Text
         }
+
+        public enum SimulateShaders
+        {
+            NoSimulation,
+            PixelShader14,
+            PixelShader11,
+            PixelShader00
+        }
+
+        public enum TextRenderingMode
+        {
+            Aliased,
+            AntiAliased,
+            ClearType
+        }
+
+        public enum ResizeSetting
+        {
+            Disabled,
+            ShowMore,
+            Stretch
+        }
+
+        public enum LayoutTextureLoading
+        {
+            UseAppSetting,
+            LoadOnAppStart,
+            LoadOnLayoutStart
+        }
     }
 }

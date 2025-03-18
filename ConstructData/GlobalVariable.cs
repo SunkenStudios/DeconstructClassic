@@ -12,15 +12,9 @@ namespace DeconstructClassic.ConstructData
         {
             Name = reader.ReadAutoAscii();
             Type = (Enums.VariableType)reader.ReadInt();
-            switch (Type)
-            {
-                case Enums.VariableType.Number:
-                    Value = reader.ReadInt();
-                    break;
-                case Enums.VariableType.Text:
-                    Value = reader.ReadAutoAscii();
-                    break;
-            }
+            Value = reader.ReadAutoAscii();
+            if (Type == Enums.VariableType.Number)
+                Value = int.Parse((string)Value);
         }
     }
 }
