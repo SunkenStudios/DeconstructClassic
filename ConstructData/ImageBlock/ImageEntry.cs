@@ -1,7 +1,7 @@
 ﻿using DeconstructClassic.Memory;
 using System.Numerics;
 
-namespace DeconstructClassic.ConstructData
+namespace DeconstructClassic.ConstructData.ImageBlock
 {
     public class ImageEntry
     {

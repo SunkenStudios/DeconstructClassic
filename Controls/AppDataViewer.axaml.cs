@@ -1,7 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using DeconstructClassic.ConstructData;
+using DeconstructClassic.ConstructData.AppBlock;
 using System.Collections.ObjectModel;
 
 namespace DeconstructClassic;

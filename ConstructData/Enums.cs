@@ -43,5 +43,20 @@
             LoadOnAppStart,
             LoadOnLayoutStart
         }
+
+        public enum LayerType
+        {
+            Normal,
+            WindowControls,
+            NonFrame,
+            Include
+        }
+
+        public enum LayerSampler
+        {
+            Default,
+            Point,
+            Linear
+        }
     }
 }

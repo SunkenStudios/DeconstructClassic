@@ -1,6 +1,6 @@
 ﻿using DeconstructClassic.Memory;
 
-namespace DeconstructClassic.ConstructData
+namespace DeconstructClassic.ConstructData.AppBlock
 {
     public class AppData
     {

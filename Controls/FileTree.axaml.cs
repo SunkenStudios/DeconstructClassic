@@ -2,7 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media.Imaging;
-using DeconstructClassic.ConstructData;
+using DeconstructClassic.ConstructData.AppBlock;
 using DeconstructClassic.Memory;
 using SixLabors.ImageSharp;
 using System.Drawing;

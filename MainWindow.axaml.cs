@@ -4,7 +4,7 @@ using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
-using DeconstructClassic.ConstructData;
+using DeconstructClassic.ConstructData.AppBlock;
 using DeconstructClassic.Memory;
 using Ressy;
 using System;
