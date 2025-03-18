@@ -1,4 +1,18 @@
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Layout;
+using Avalonia.Media.Imaging;
+using DeconstructClassic.ConstructData;
+using DeconstructClassic.Memory;
+using SixLabors.ImageSharp;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Text;
+using Bitmap = Avalonia.Media.Imaging.Bitmap;
+using Image = Avalonia.Controls.Image;
+using ISImage = SixLabors.ImageSharp.Image;
+using SDBitmap = System.Drawing.Bitmap;
 
 namespace DeconstructClassic;
 
@@ -9,12 +23,67 @@ public partial class FileTree : UserControl
         InitializeComponent();
     }
 
+
+    public TreeViewItem MakeLabelIcon(string text, byte[] iconData)
+    {
+        TreeViewItem item = new TreeViewItem();
+        item.IsExpanded = false;
+
+        StackPanel stack = new StackPanel();
+        stack.Orientation = Orientation.Horizontal;
+
+
+        BinaryWriter writer = new BinaryWriter(new MemoryStream(),Encoding.ASCII,true);
+        writer.Write((short)0);
+        writer.Write((short)1);
+        writer.Write((short)1);
+        writer.Write((byte)32);
+        writer.Write((byte)64);
+        writer.Write((short)0);
+        writer.Write((short)1);
+        writer.Write((short)32);
+        writer.Write((int)iconData.Length);
+        writer.Write((int)writer.BaseStream.Position + 4);
+        writer.Write(iconData);
+
+        MemoryStream memoryStream = (MemoryStream)writer.BaseStream;
+        writer.Close();
+        memoryStream.Position = 0;
+
+        //ISImage img = ISImage.Load(writer.BaseStream);
+        //img.SaveAsPng(memoryStream);
+        //img.Dispose();
+
+        Image image = new Image();
+        image.Source = new Bitmap(memoryStream);
+        image.Width = 16;
+        image.Height = 16;
+        image.Margin = new Thickness(0, 0, 4, 0);
+        Label lbl = new Label();
+        lbl.Content = text;
+
+        stack.Children.Add(image);
+        stack.Children.Add(lbl);
+
+        item.Header = stack;
+        return item;
+    }
+
     private void TreeView_SelectionChanged(object? sender, Avalonia.Controls.SelectionChangedEventArgs e)
     {
         if (sender is TreeView treeView)
         {
             if (treeView.SelectedItem is TreeViewItem item)
             {
+                if (item.Tag is AppData appData)
+                {
+                    MainWindow.Instance.ContentPanel.Child = new AppDataViewer(appData);
+                } else
+                {
+                    MainWindow.Instance.ContentPanel.Child = null;
+                }
+
+
                 /*if (item.Tag is FileData fileData)
                 {
                     if (fileData.Type == EFileType.Folder)
