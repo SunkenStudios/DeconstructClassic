@@ -58,5 +58,92 @@
             Point,
             Linear
         }
+
+        public enum EventType
+        {
+            Event,
+            Comment,
+            Group,
+            Include,
+            Script
+        }
+
+        public enum EventCaps
+        {
+            None,
+            BeginEventList,
+            BeginEvent,
+            BeginConditions,
+            BeginCondition,
+            EndCondition,
+            EndConditions,
+            BeginActions,
+            BeginAction,
+            EndAction,
+            EndActions,
+            BeginParam,
+            EndParam,
+            EndEvent,
+            EndEventList,
+            BeginGroup,
+            EndGroup
+        }
+
+        public enum TokenType
+        {
+            Null,
+            AnyBinaryOperator,
+            AnyFunction,
+            AnyValue,
+            Integer,
+            Float,
+            StringLiteral,
+            Identifier,
+            Array,
+            VariableName,
+            LeftBracket,
+            RightBracket,
+            Comma,
+            Dot,
+            LeftCurly,
+            RightCurly,
+            At,
+            Add,
+            Subtract,
+            Multiply,
+            Divide,
+            Mod,
+            Sin,
+            Cos,
+            Tan,
+            Sqrt,
+            FuncStr,
+            FuncInt,
+            FuncFloat,
+            Equal,
+            Less,
+            Greater,
+            LessEqual,
+            GreaterEqual,
+            NotEqual,
+            Conditional,
+            Colon,
+            And,
+            Or,
+            Asin,
+            Acos,
+            Atan,
+            Abs,
+            Exp,
+            Ln,
+            Log10,
+            Floor,
+            Ceil,
+            Round,
+            Random,
+            Len,
+            Whitespace,
+            Color
+        }
     }
 }
