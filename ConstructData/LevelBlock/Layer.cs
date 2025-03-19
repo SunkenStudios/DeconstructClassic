@@ -1,12 +1,9 @@
 ﻿using DeconstructClassic.Memory;
-using System;
 using System.Drawing;
 using System.Numerics;
 
-namespace DeconstructClassic.ConstructData.LevelBlock
-{
-    public class Layer
-    {
+namespace DeconstructClassic.ConstructData.LevelBlock {
+    public class Layer {
         public int ID;
         public string Name;
         public Enums.LayerType Type;
@@ -28,8 +25,7 @@ namespace DeconstructClassic.ConstructData.LevelBlock
 
         public LayerObject[] LayerObjects;
 
-        public Layer(ByteReader reader)
-        {
+        public Layer(ByteReader reader) {
             ID = reader.ReadInt();
             Name = reader.ReadAutoAscii();
             Type = (Enums.LayerType)reader.ReadByte();
@@ -50,8 +46,9 @@ namespace DeconstructClassic.ConstructData.LevelBlock
             ClearDepthBuffer = reader.ReadBool();
 
             LayerObjects = new LayerObject[reader.ReadInt()];
-            for (int i = 0; i < LayerObjects.Length; i++)
+            for (int i = 0; i < LayerObjects.Length; i++) {
                 LayerObjects[i] = new LayerObject(reader);
+            }
         }
     }
 }

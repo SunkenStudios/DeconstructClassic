@@ -1,10 +1,8 @@
 ﻿using DeconstructClassic.Memory;
 using System.Numerics;
 
-namespace DeconstructClassic.ConstructData.LevelBlock
-{
-    public class LayerObject
-    {
+namespace DeconstructClassic.ConstructData.LevelBlock {
+    public class LayerObject {
         private int _unknownKey;
         public Vector2 Position;
         public int Width;
@@ -18,8 +16,7 @@ namespace DeconstructClassic.ConstructData.LevelBlock
         public string[] PrivateValues;
         public byte[] ObjectData;
 
-        public LayerObject(ByteReader reader)
-        {
+        public LayerObject(ByteReader reader) {
             _unknownKey = reader.ReadInt();
             Position = new Vector2(reader.ReadInt(), reader.ReadInt());
             Width = reader.ReadInt();
@@ -32,8 +29,9 @@ namespace DeconstructClassic.ConstructData.LevelBlock
             ObjectID = reader.ReadInt(); // Why tho?
 
             PrivateValues = new string[reader.ReadInt()];
-            for (int i = 0; i < PrivateValues.Length; i++)
+            for (int i = 0; i < PrivateValues.Length; i++) {
                 PrivateValues[i] = reader.ReadAutoAscii();
+            }
 
             ObjectData = reader.ReadBytes(reader.ReadInt());
         }

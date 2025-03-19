@@ -1,10 +1,8 @@
 ﻿using DeconstructClassic.Memory;
 using System.Drawing;
 
-namespace DeconstructClassic.ConstructData.LevelBlock
-{
-    public class LayoutEntry
-    {
+namespace DeconstructClassic.ConstructData.LevelBlock {
+    public class LayoutEntry {
         public int Width;
         public int Height;
         public string Name;
@@ -18,8 +16,7 @@ namespace DeconstructClassic.ConstructData.LevelBlock
 
         public Enums.LayoutTextureLoading TextureLoading;
 
-        public LayoutEntry(ByteReader reader)
-        {
+        public LayoutEntry(ByteReader reader) {
             Width = reader.ReadInt();
             Height = reader.ReadInt();
             Name = reader.ReadAutoAscii();
@@ -28,16 +25,19 @@ namespace DeconstructClassic.ConstructData.LevelBlock
             ApplicationBackground = reader.ReadBool();
 
             KeyData = new KeyData[reader.ReadInt()];
-            for (int i = 0; i < KeyData.Length; i++)
+            for (int i = 0; i < KeyData.Length; i++) {
                 KeyData[i] = new KeyData(reader);
+            }
 
             Layers = new Layer[reader.ReadInt()];
-            for (int i = 0; i < Layers.Length; i++)
+            for (int i = 0; i < Layers.Length; i++) {
                 Layers[i] = new Layer(reader);
+            }
 
             Images = new int[reader.ReadInt()];
-            for (int i = 0; i < Images.Length; i++)
+            for (int i = 0; i < Images.Length; i++) {
                 Images[i] = reader.ReadInt();
+            }
 
             TextureLoading = (Enums.LayoutTextureLoading)reader.ReadInt();
         }

@@ -1,9 +1,7 @@
 ﻿using DeconstructClassic.Memory;
 
-namespace DeconstructClassic.ConstructData.LevelBlock
-{
-    public class Animation
-    {
+namespace DeconstructClassic.ConstructData.LevelBlock {
+    public class Animation {
         public int ID;
         public string Name;
         public int Tag;
@@ -18,8 +16,7 @@ namespace DeconstructClassic.ConstructData.LevelBlock
         public AnimationImage[] AnimationImages;
         public Animation[] SubAnimations;
 
-        public Animation(ByteReader reader)
-        {
+        public Animation(ByteReader reader) {
             ID = reader.ReadInt();
             Name = reader.ReadAutoAscii();
             Tag = reader.ReadInt();
@@ -32,12 +29,14 @@ namespace DeconstructClassic.ConstructData.LevelBlock
             PingPong = reader.ReadInt() != 0;
 
             AnimationImages = new AnimationImage[reader.ReadInt()];
-            for (int i = 0; i < AnimationImages.Length; i++)
+            for (int i = 0; i < AnimationImages.Length; i++) {
                 AnimationImages[i] = new AnimationImage(reader);
+            }
 
             SubAnimations = new Animation[reader.ReadInt()];
-            for (int i = 0; i < SubAnimations.Length; i++)
+            for (int i = 0; i < SubAnimations.Length; i++) {
                 SubAnimations[i] = new Animation(reader);
+            }
         }
     }
 }

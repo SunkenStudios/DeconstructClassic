@@ -1,33 +1,24 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
-using Avalonia.Media.Imaging;
 using DeconstructClassic.ConstructData.AppBlock;
 using DeconstructClassic.ConstructData.ImageBlock;
 using DeconstructClassic.Memory;
-using SixLabors.ImageSharp;
 using System;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Text;
 using Bitmap = Avalonia.Media.Imaging.Bitmap;
 using Image = Avalonia.Controls.Image;
-using ISImage = SixLabors.ImageSharp.Image;
-using SDBitmap = System.Drawing.Bitmap;
 
 namespace DeconstructClassic;
 
-public partial class FileTree : UserControl
-{
-    public FileTree()
-    {
+public partial class FileTree : UserControl {
+    public FileTree() {
         InitializeComponent();
     }
 
 
-    public TreeViewItem MakeLabelIcon(string text, byte[] iconData)
-    {
+    public TreeViewItem MakeLabelIcon(string text, byte[] iconData) {
         TreeViewItem item = new TreeViewItem();
         item.IsExpanded = false;
 
@@ -35,7 +26,7 @@ public partial class FileTree : UserControl
         stack.Orientation = Orientation.Horizontal;
 
 
-        BinaryWriter writer = new BinaryWriter(new MemoryStream(),Encoding.ASCII,true);
+        BinaryWriter writer = new BinaryWriter(new MemoryStream(), Encoding.ASCII, true);
         writer.Write((short)0);
         writer.Write((short)1);
         writer.Write((short)1);
@@ -71,39 +62,31 @@ public partial class FileTree : UserControl
         return item;
     }
 
-    private void TreeView_SelectionChanged(object? sender, Avalonia.Controls.SelectionChangedEventArgs e)
-    {
-        if (sender is TreeView treeView)
-        {
-            if (treeView.SelectedItem is TreeViewItem item)
-            {
-                if (MainWindow.Instance.ContentPanel.Child is IDisposable disposable)
+    private void TreeView_SelectionChanged(object? sender, Avalonia.Controls.SelectionChangedEventArgs e) {
+        if (sender is TreeView treeView) {
+            if (treeView.SelectedItem is TreeViewItem item) {
+                if (MainWindow.Instance.ContentPanel.Child is IDisposable disposable) {
                     disposable.Dispose();
+                }
 
-                if (item.Tag is AppData appData)
-                {
+                if (item.Tag is AppData appData) {
                     MainWindow.Instance.ContentPanel.Child = new AppDataViewer(appData);
                 }
-                else if (item.Tag is GlobalVariable[] globalVars)
-                {
+                else if (item.Tag is GlobalVariable[] globalVars) {
                     MainWindow.Instance.ContentPanel.Child = new GlobalValueViewer(globalVars);
                 }
-                else if (item.Tag is ImageEntry imageEntry)
-                { 
+                else if (item.Tag is ImageEntry imageEntry) {
                     MainWindow.Instance.ContentPanel.Child = new PhotoViewer(imageEntry.Data);
                 }
-                else if (item.Tag is BinaryFile binaryFile)
-                {
-                    if (binaryFile.Type == BinaryFile.FileType.WAVE)
-                    {
+                else if (item.Tag is BinaryFile binaryFile) {
+                    if (binaryFile.Type == BinaryFile.FileType.WAVE) {
                         MainWindow.Instance.ContentPanel.Child = new AudioPlayer(binaryFile);
-                    } else
-                    {
+                    }
+                    else {
                         MainWindow.Instance.ContentPanel.Child = null;
                     }
                 }
-                else
-                {
+                else {
                     MainWindow.Instance.ContentPanel.Child = null;
                 }
 

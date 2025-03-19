@@ -27,4 +27,12 @@
 	  <PackageReference Include="SixLabors.ImageSharp" Version="3.1.7" />
 	  <PackageReference Include="System.Drawing.Common" Version="9.0.3" />
   </ItemGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="F:\repos\DeconstructClassic\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="F:\repos\DeconstructClassic\.editorconfig" />
+  </ItemGroup>
 </Project>

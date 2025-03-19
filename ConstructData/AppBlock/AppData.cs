@@ -1,9 +1,7 @@
 ﻿using DeconstructClassic.Memory;
 
-namespace DeconstructClassic.ConstructData.AppBlock
-{
-    public class AppData
-    {
+namespace DeconstructClassic.ConstructData.AppBlock {
+    public class AppData {
         public string AppName;
         public int WindowWidth;
         public int WindowHeight;
@@ -47,8 +45,7 @@ namespace DeconstructClassic.ConstructData.AppBlock
         public uint MultiSamples;
         public Enums.LayoutTextureLoading TextureLoading;
 
-        public AppData(ByteReader reader)
-        {
+        public AppData(ByteReader reader) {
             AppName = reader.ReadAutoAscii();
             WindowWidth = reader.ReadInt();
             WindowHeight = reader.ReadInt();
@@ -64,18 +61,21 @@ namespace DeconstructClassic.ConstructData.AppBlock
             Sampler = reader.ReadInt();
 
             GlobalVariables = new GlobalVariable[reader.ReadInt()];
-            for (int i = 0; i < GlobalVariables.Length; i++)
+            for (int i = 0; i < GlobalVariables.Length; i++) {
                 GlobalVariables[i] = new GlobalVariable(reader);
+            }
 
             Controls = new Control[reader.ReadInt()];
-            for (int i = 0; i < Controls.Length; i++)
+            for (int i = 0; i < Controls.Length; i++) {
                 Controls[i] = new Control(reader);
+            }
 
             DisableWindowsKey = reader.ReadBool();
 
             KeyData = new KeyData[reader.ReadInt()];
-            for (int i = 0; i < KeyData.Length; i++)
+            for (int i = 0; i < KeyData.Length; i++) {
                 KeyData[i] = new KeyData(reader);
+            }
 
             SimulateShaders = (Enums.SimulateShaders)reader.ReadInt();
 
