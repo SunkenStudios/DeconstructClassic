@@ -7,7 +7,7 @@ namespace DeconstructClassic.ConstructData.ImageBlock
     {
         public int ID;
         public Vector2 Hotspot;
-        public Vector2[] ActionPoints;
+        public ActionPoint[] ActionPoints;
         public byte[] Data;
 
         public int CollisionMaskWidth;
@@ -19,9 +19,9 @@ namespace DeconstructClassic.ConstructData.ImageBlock
         {
             ID = reader.ReadInt();
             Hotspot = new Vector2(reader.ReadInt(), reader.ReadInt());
-            ActionPoints = new Vector2[reader.ReadInt()];
+            ActionPoints = new ActionPoint[reader.ReadInt()];
             for (int i = 0; i < ActionPoints.Length; i++)
-                ActionPoints[i] = new Vector2(reader.ReadInt(), reader.ReadInt());
+                ActionPoints[i] = new ActionPoint(reader);
             Data = reader.ReadBytes(reader.ReadInt());
 
             CollisionMaskWidth = reader.ReadInt();

@@ -32,10 +32,10 @@ public partial class AppDataViewer : UserControl
         AddProperty("FPS",appData.FPS);
         AddProperty("Fullscreen",appData.Fullscreen);
         AddProperty("Sampler",appData.Sampler);
-        AddProperty("Global Variables",appData.GlobalVariables);
-        AddProperty("Controls",appData.Controls);
+        //AddProperty("Global Variables",appData.GlobalVariables);
+        //AddProperty("Controls",appData.Controls);
         AddProperty("Disable Windows Key",appData.DisableWindowsKey);
-        AddProperty("Key Data",appData.KeyData);
+        //AddProperty("Key Data",appData.KeyData);
         AddProperty("Simulate Shaders",appData.SimulateShaders);
         AddProperty("File Path",appData.FilePath);
         AddProperty("FPS In Caption",appData.FPSInCaption);

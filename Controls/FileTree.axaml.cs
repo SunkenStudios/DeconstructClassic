@@ -84,7 +84,7 @@ public partial class FileTree : UserControl
                 {
                     MainWindow.Instance.ContentPanel.Child = new AppDataViewer(appData);
                 }
-                if (item.Tag is GlobalVariable[] globalVars)
+                else if (item.Tag is GlobalVariable[] globalVars)
                 {
                     MainWindow.Instance.ContentPanel.Child = new GlobalValueViewer(globalVars);
                 }
