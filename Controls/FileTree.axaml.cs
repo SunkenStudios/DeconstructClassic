@@ -3,8 +3,10 @@ using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media.Imaging;
 using DeconstructClassic.ConstructData.AppBlock;
+using DeconstructClassic.ConstructData.ImageBlock;
 using DeconstructClassic.Memory;
 using SixLabors.ImageSharp;
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -75,10 +77,32 @@ public partial class FileTree : UserControl
         {
             if (treeView.SelectedItem is TreeViewItem item)
             {
+                if (MainWindow.Instance.ContentPanel.Child is IDisposable disposable)
+                    disposable.Dispose();
+
                 if (item.Tag is AppData appData)
                 {
                     MainWindow.Instance.ContentPanel.Child = new AppDataViewer(appData);
-                } else
+                }
+                if (item.Tag is GlobalVariable[] globalVars)
+                {
+                    MainWindow.Instance.ContentPanel.Child = new GlobalValueViewer(globalVars);
+                }
+                else if (item.Tag is ImageEntry imageEntry)
+                { 
+                    MainWindow.Instance.ContentPanel.Child = new PhotoViewer(imageEntry.Data);
+                }
+                else if (item.Tag is BinaryFile binaryFile)
+                {
+                    if (binaryFile.Type == BinaryFile.FileType.WAVE)
+                    {
+                        MainWindow.Instance.ContentPanel.Child = new AudioPlayer(binaryFile);
+                    } else
+                    {
+                        MainWindow.Instance.ContentPanel.Child = null;
+                    }
+                }
+                else
                 {
                     MainWindow.Instance.ContentPanel.Child = null;
                 }

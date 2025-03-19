@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i="https://github.com/projektanker/icons.avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="DeconstructClassic.AudioPlayer">
+  <Border BorderBrush="{DynamicResource SemiColorBackground1}" BorderThickness="1" Margin="8">
+    <Grid>
+      <TextBlock x:Name="SongName" Text="" FontSize="24" Margin="16,8"/>
+
+      <TextBlock x:Name="ProgressCurTime" Text="0:00" FontSize="16" Margin="16,16" VerticalAlignment="Bottom"/>
+      <TextBlock x:Name="ProgressEndTime" Text="0:00" FontSize="16" Margin="16,16" TextAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+
+      <Rectangle x:Name="PauseBtnHit" Fill="Transparent" Width="32" Height="32" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,20" PointerPressed="PauseBtnPressed"/>
+      <i:Icon x:Name="PauseBtn" Value="fa-play" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,20" IsHitTestVisible="False"/>
+
+      <Rectangle x:Name="ProgressHit" Fill="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="12" Margin="8,6" PointerPressed="ProgressPressed" PointerMoved="ProgressMoved" PointerReleased="ProgressReleased"/>
+      <ProgressBar x:Name="SongProgress" IsHitTestVisible="False" Height="8" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="#20000000" Margin="8" BorderBrush="{DynamicResource SemiColorBackground1}" BorderThickness="1"/>
+    </Grid>
+  </Border>
+</UserControl>

@@ -27,8 +27,14 @@
 			</Menu>
 			<Border BorderBrush="{DynamicResource SemiColorBackground1}" BorderThickness="0,0,0,1" PointerPressed="Menu_PointerPressed"/>
 		</Grid>
-		<Grid ColumnDefinitions="2*,1,5*">
-			<local:FileTree x:Name="FileTree"/>
+		<Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="2*" MinWidth="100"/>
+        <ColumnDefinition Width="1"/>
+        <ColumnDefinition Width="5*" MinWidth="100"/>
+       </Grid.ColumnDefinitions>
+
+      <local:FileTree x:Name="FileTree"/>
 			<GridSplitter Grid.Column="1" ResizeDirection="Columns"/>
 			<Border Grid.Column="2" x:Name="ContentPanel"/>
 		</Grid>

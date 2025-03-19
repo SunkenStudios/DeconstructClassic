@@ -5,6 +5,7 @@ using Avalonia.Layout;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
 using DeconstructClassic.ConstructData.AppBlock;
+using DeconstructClassic.ConstructData.ImageBlock;
 using DeconstructClassic.Memory;
 using Ressy;
 using System;
@@ -43,6 +44,16 @@ namespace DeconstructClassic
                  new Language(0)
             ));
             return resBlock.Data;
+        }
+
+        private bool TryReadResource(PortableExecutable executable, ResourceCodes code, int id, out Resource? output)
+        {
+            output = executable.TryGetResource(new ResourceIdentifier(
+                     ResourceType.FromString(code.ToString()),
+                     ResourceName.FromCode(id),
+                     new Language(0)
+            ));
+            return output != null;
         }
 
         private byte[] GetIcon(PortableExecutable executable)
@@ -91,6 +102,39 @@ namespace DeconstructClassic
                             globalVars.Tag = appData.GlobalVariables;
                             appItem.Items.Add(globalVars);
                         }
+
+                        ImageBank imageBank = new ImageBank(new ByteReader(ReadResource(executable, ResourceCodes.IMAGEBLOCK)));
+                        TreeViewItem imageItem = new TreeViewItem();
+                        imageItem.Header = "Images";
+                        foreach(ImageEntry imageData in imageBank.Images)
+                        {
+                            TreeViewItem image = new TreeViewItem();
+                            image.Header = "image" + imageData.ID.ToString("D4");
+                            image.Tag = imageData;
+                            imageItem.Items.Add(image);
+                        }
+                        appItem.Items.Add(imageItem);
+
+                        TreeViewItem soundItem = new TreeViewItem();
+                        soundItem.Header = "Sounds";
+                        for (int i = (int)ResourceCodes.FILES; ; i++)
+                        {
+                            if (!TryReadResource(executable, ResourceCodes.FILES, i, out Resource? resource))
+                                break;
+                            ByteReader reader = new ByteReader(resource!.Data);
+                            string header = reader.ReadAscii(4);
+                            reader.Seek(0);
+                            if (header == "RIFF") // wave file
+                            {
+                                BinaryFile sndFile = new BinaryFile(reader,BinaryFile.FileType.WAVE);
+                                TreeViewItem soundFileItem = new TreeViewItem();
+                                soundFileItem.Header = "sound" + i.ToString("D4");
+                                soundFileItem.Tag = sndFile;
+                                soundItem.Items.Add(soundFileItem);
+                            }
+
+                        }
+                        appItem.Items.Add(soundItem);
 
                     }
                     break;

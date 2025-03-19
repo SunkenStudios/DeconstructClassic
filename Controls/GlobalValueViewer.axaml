@@ -1,0 +1,24 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:this ="using:DeconstructClassic"
+             x:Class="DeconstructClassic.GlobalValueViewer">
+  <Grid>
+    <DataGrid x:Name="extGrid" x:DataType="this:GlobalValueViewerPropertyRow" IsReadOnly="True" CanUserReorderColumns="True" CanUserResizeColumns="False" CanUserSortColumns="False" GridLinesVisibility="All" BorderBrush="{DynamicResource SemiColorBackground1}" BorderThickness="1" Margin="8">
+      <DataGrid.Styles>
+        <Style Selector="DataGridColumnHeader">
+          <Setter Property="Padding" Value="8,0" />
+        </Style>
+        <Style Selector="Label.wrap > TextBlock">
+          <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+      </DataGrid.Styles>
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+        <DataGridTextColumn Header="Value" Width="*" Binding="{Binding Value}"/>
+      </DataGrid.Columns>
+    </DataGrid>
+  </Grid>
+</UserControl>
