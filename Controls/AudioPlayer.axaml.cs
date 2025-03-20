@@ -5,6 +5,7 @@ using Avalonia.Threading;
 using DeconstructClassic.Memory;
 using NAudio.Wave;
 using System;
+using System.Threading.Tasks;
 
 namespace DeconstructClassic;
 
@@ -48,7 +49,7 @@ public partial class AudioPlayer : UserControl, IDisposable {
         }
     }
 
-    public void LoadSong(BinaryFile fileData) {
+    public Task LoadSong(BinaryFile fileData) {
 
         SongName.Text = string.Empty;
 
@@ -67,6 +68,7 @@ public partial class AudioPlayer : UserControl, IDisposable {
         SongOut.Init(SongReader); // Ready for playback, but not playing yet
 
         SongProgress.Maximum = (dataSize / (channels * (bitsPSample / 8.0))) / sampleRate;
+        return Task.CompletedTask;
     }
 
     private void PauseBtnPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e) {
