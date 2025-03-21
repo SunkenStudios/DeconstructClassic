@@ -278,9 +278,9 @@ namespace DeconstructClassic.Memory {
             switch (type) {
                 case 0:
                 default: // RGBA
-                    return Color.FromArgb(a, r, g, b);
+                    return Color.FromArgb(255 - a, r, g, b);
                 case 1: // BGRA
-                    return Color.FromArgb(a, b, g, r);
+                    return Color.FromArgb(255 - a, b, g, r);
             }
         }
 

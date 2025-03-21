@@ -48,5 +48,19 @@
             Point,
             Linear
         }
+
+        public enum CollisionType {
+            None,
+            Point,
+            BoundingBox,
+            PerPixel,
+            AngledBox
+        }
+
+        public enum AutoRotationType {
+            Normal,
+            NoRotation,
+            NAngles
+        }
     }
 }

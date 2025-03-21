@@ -3,11 +3,13 @@ using Avalonia.Controls;
 using Avalonia.Layout;
 using DeconstructClassic.ConstructData.AppBlock;
 using DeconstructClassic.ConstructData.ImageBlock;
+using DeconstructClassic.ConstructData.LevelBlock;
 using DeconstructClassic.Memory;
 using System;
 using System.IO;
 using System.Text;
 using Bitmap = Avalonia.Media.Imaging.Bitmap;
+using Control = Avalonia.Controls.Control;
 using Image = Avalonia.Controls.Image;
 
 namespace DeconstructClassic;
@@ -65,8 +67,8 @@ public partial class FileTree : UserControl {
                     disposable.Dispose();
                 }
 
-                if (item.Tag is AppData appData) {
-                    MainWindow.Instance.ContentPanel.Child = new AppDataViewer(appData);
+                if (item.Tag is AppWrapper app) {
+                    MainWindow.Instance.ContentPanel.Child = new AppDataViewer(app.AppData);
                 }
                 else if (item.Tag is GlobalVariable[] globalVars) {
                     MainWindow.Instance.ContentPanel.Child = new GlobalValueViewer(globalVars);
@@ -81,6 +83,9 @@ public partial class FileTree : UserControl {
                     else {
                         MainWindow.Instance.ContentPanel.Child = null;
                     }
+                }
+                else if (item.Tag is LayoutEntry layoutEntry) {
+                    MainWindow.Instance.ContentPanel.Child = new LevelPreviewer(layoutEntry, MainWindow.GetControlApp(item));
                 }
                 else {
                     MainWindow.Instance.ContentPanel.Child = null;

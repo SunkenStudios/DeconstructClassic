@@ -1,4 +1,5 @@
 ﻿using DeconstructClassic.Memory;
+using System.Linq;
 
 namespace DeconstructClassic.ConstructData.LevelBlock {
     public class LayoutBank {
@@ -45,6 +46,14 @@ namespace DeconstructClassic.ConstructData.LevelBlock {
             for (int i = 0; i < Animations.Length; i++) {
                 Animations[i] = new Animation(reader);
             }
+        }
+
+        public ObjectType GetObjectType(int id) {
+            return ObjectTypes.First(x => x.ID == id);
+        }
+
+        public Animation? GetAnimation(int id) {
+            return Animations.FirstOrDefault(x => x.ID == id);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using DeconstructClassic.Memory;
+using System.Linq;
 
 namespace DeconstructClassic.ConstructData.LevelBlock {
     public class Animation {
@@ -37,6 +38,19 @@ namespace DeconstructClassic.ConstructData.LevelBlock {
             for (int i = 0; i < SubAnimations.Length; i++) {
                 SubAnimations[i] = new Animation(reader);
             }
+        }
+
+        public AnimationImage? GetFirstImage() {
+            if (AnimationImages.Length > 0) {
+                return AnimationImages.First();
+            }
+            foreach (Animation subAnimation in SubAnimations) {
+                AnimationImage? animImage = subAnimation.GetFirstImage();
+                if (animImage != null) {
+                    return animImage;
+                }
+            }
+            return null;
         }
     }
 }
