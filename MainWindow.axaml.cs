@@ -130,7 +130,14 @@ namespace DeconstructClassic {
                         }
                     }
                     break;
-                case "DumpShaders":
+                case "DumpShaders": {
+                        if (GetDumpFolder(out string path)) {
+                            AppWrapper app = GetCurrentApp();
+                            foreach (ShaderEntry shader in app.ShaderBank.ShaderEntries) {
+                                File.WriteAllBytes(Path.Combine(path, Path.GetFileName(shader.FilePath)),shader.Data);
+                            }
+                        }
+                    }
                     break;
                 case "DumpPlugins": {
                         if (GetDumpFolder(out string path)) {
@@ -141,9 +148,46 @@ namespace DeconstructClassic {
                         }
                     }
                     break;
-                case "DumpIcons":
+                case "DumpIcons": {
+                        if (GetDumpFolder(out string path)) {
+                            AppWrapper app = GetCurrentApp();
+                            //File.WriteAllText(Path.Combine(path, "icon.txt"),"No");
+                        }
+                    }
                     break;
-                case "DumpAll":
+                case "DumpAll": {
+                        if (GetDumpFolder(out string path)) {
+                            AppWrapper app = GetCurrentApp();
+
+                            // Dump Images
+                            Directory.CreateDirectory(Path.Combine(path, "Images"));
+                            foreach (ImageEntry image in app.ImageBank.Images) {
+                                File.WriteAllBytes(Path.Combine(path, "Images", "image" + image.ID.ToString("D4") + ".png"), image.Data);
+                            }
+
+                            // Dump Audio
+                            Directory.CreateDirectory(Path.Combine(path, "Audio"));
+                            foreach (BinaryFile audio in app.BinaryFiles.Where(x => x.Type == BinaryFile.FileType.WAVE)) {
+                                File.WriteAllBytes(Path.Combine(path, "Audio", "audio" + audio.ID.ToString("D4") + ".wav"), audio.GetData());
+                            }
+
+                            // Dump Shaders
+                            Directory.CreateDirectory(Path.Combine(path, "Shaders"));
+                            foreach (ShaderEntry shader in app.ShaderBank.ShaderEntries) {
+                                File.WriteAllBytes(Path.Combine(path, "Shaders", Path.GetFileName(shader.FilePath)), shader.Data);
+                            }
+
+                            // Dump Plugins
+                            Directory.CreateDirectory(Path.Combine(path, "Plugins"));
+                            foreach (DLLFileInfo dll in app.DLLFileInfos) {
+                                File.WriteAllBytes(Path.Combine(path, "Plugins", dll.ObjectName + ".csx"), dll.Data);
+                            }
+
+                            // Dump Icons
+                            //File.WriteAllText(Path.Combine(path, "icon.txt"), "No");
+
+                        }
+                    }
                     break;
             }
         }
