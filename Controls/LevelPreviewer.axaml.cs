@@ -29,7 +29,8 @@ public partial class LevelPreviewer : UserControl {
         Layout = layout;
         App = app;
 
-        Loaded += LoadLayout;
+        LoadLayout(null, null);
+        //Loaded += LoadLayout;
     }
 
     private void LoadLayout(object? sender, Avalonia.Interactivity.RoutedEventArgs e) {

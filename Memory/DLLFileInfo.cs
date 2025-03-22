@@ -16,6 +16,7 @@ namespace DeconstructClassic.Memory {
         public string Email = string.Empty;
         public string Category = string.Empty;
         public string ReleaseType = string.Empty;
+        public byte[] Data = [];
 
         public DLLFileInfo(PortableExecutable PE) {
             var stringTable = PE.GetResource(new ResourceIdentifier(

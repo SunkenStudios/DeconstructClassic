@@ -24,6 +24,14 @@
 				<MenuItem Header="_File">
 					<MenuItem x:Name="OpenFile" Header="_Open" HotKey="Ctrl+O" InputGesture="Ctrl+O" Click="MenuItem_Click"/>
 				</MenuItem>
+        <MenuItem Header="_Export" SubmenuOpened="ExportItem_Click" >
+          <MenuItem x:Name="DumpImages" Header="Dump _Images to folder" IsEnabled="False" Click="MenuItem_Click"/>
+          <MenuItem x:Name="DumpAudio" Header="Dump _Audio to folder" IsEnabled="False" Click="MenuItem_Click"/>
+          <MenuItem x:Name="DumpShaders" Header="Dump _Shaders to folder" IsEnabled="False" Click="MenuItem_Click"/>
+          <MenuItem x:Name="DumpPlugins" Header="Dump _Plugins to folder" IsEnabled="False" Click="MenuItem_Click"/>
+          <MenuItem x:Name="DumpIcons" Header="Dump I_cons to folder" IsEnabled="False" Click="MenuItem_Click"/>
+          <MenuItem x:Name="DumpAll" Header="Dump A_ll Assets to folder" IsEnabled="False" Click="MenuItem_Click"/>
+        </MenuItem>
 			</Menu>
 			<Border BorderBrush="{DynamicResource SemiColorBackground1}" BorderThickness="0,0,0,1" PointerPressed="Menu_PointerPressed"/>
 		</Grid>

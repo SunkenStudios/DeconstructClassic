@@ -9,6 +9,7 @@ using DeconstructClassic.Memory;
 using Ressy;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using Control = Avalonia.Controls.Control;
 
 namespace DeconstructClassic {
@@ -75,6 +76,20 @@ namespace DeconstructClassic {
             }
         }
 
+        private bool GetDumpFolder(out string path) {
+            var folder = TopLevel.GetTopLevel(this).StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions {
+                Title = "Select Dump Folder",
+                AllowMultiple = false,
+                SuggestedStartLocation = StorageProvider.TryGetFolderFromPathAsync(Directory.GetCurrentDirectory()).Result
+            }).Result;
+            if (folder.Count >= 1) {
+                path = folder[0].Path.LocalPath;
+                return true;
+            }
+            path = null!;
+            return false;
+        }
+
         private void MenuItem_Click(object? sender, RoutedEventArgs e) {
             MenuItem item = (MenuItem)sender!;
             switch (item.Name) {
@@ -94,6 +109,39 @@ namespace DeconstructClassic {
                         ReadLayouts(executable, appItem, app);
                         ReadDLLs(executable, app);
                     }
+                    break;
+                case "DumpImages": {
+                        if (GetDumpFolder(out string path)) {
+                            AppWrapper app = GetCurrentApp();
+                            foreach (ImageEntry image in app.ImageBank.Images) {
+                                File.WriteAllBytes(Path.Combine(path, "image" + image.ID.ToString("D4") + ".png"), image.Data);
+                            }
+                        }
+                    }
+                    break;
+                case "DumpAudio": {
+                        if (GetDumpFolder(out string path)) {
+                            AppWrapper app = GetCurrentApp();
+                            foreach (BinaryFile audio in app.BinaryFiles.Where(x => x.Type == BinaryFile.FileType.WAVE)) {
+                                File.WriteAllBytes(Path.Combine(path, "audio" + audio.ID.ToString("D4") + ".wav"), audio.GetData());
+                            }
+                        }
+                    }
+                    break;
+                case "DumpShaders":
+                    break;
+                case "DumpPlugins": {
+                        if (GetDumpFolder(out string path)) {
+                            AppWrapper app = GetCurrentApp();
+                            foreach (DLLFileInfo dll in app.DLLFileInfos) {
+                                File.WriteAllBytes(Path.Combine(path, dll.ObjectName + ".csx"), dll.Data);
+                            }
+                        }
+                    }
+                    break;
+                case "DumpIcons":
+                    break;
+                case "DumpAll":
                     break;
             }
         }
@@ -167,6 +215,7 @@ namespace DeconstructClassic {
                 if (header == "RIFF") // wave file
                 {
                     BinaryFile sndFile = new BinaryFile(reader, BinaryFile.FileType.WAVE);
+                    sndFile.ID = i;
                     TreeViewItem soundFileItem = new TreeViewItem();
                     soundFileItem.Header = "sound" + i.ToString("D4");
                     soundFileItem.Tag = sndFile;
@@ -217,6 +266,7 @@ namespace DeconstructClassic {
                 DLLFileInfo dllInfo = new DLLFileInfo(dllPE);
                 app.DLLFileInfos.Add(dllInfo);
                 File.Delete(tempFilePath);
+                dllInfo.Data = resource.Data;
             }
         }
 
@@ -242,6 +292,41 @@ namespace DeconstructClassic {
             }
             app = null;
             return false;
+        }
+
+        public AppWrapper GetCurrentApp() {
+            Control? control = (Control?)FileTree.FileTreeView.SelectedItem;
+            while (control != null) {
+                if (control.Tag is AppWrapper app) {
+                    return app;
+                }
+                control = control.Parent is Control nextControl ? nextControl : null;
+            }
+            return null!;
+        }
+
+        public bool TryGetCurrentApp(out AppWrapper? app) {
+            Control? control = (Control?)FileTree.FileTreeView.SelectedItem;
+            while (control != null) {
+                if (control.Tag is AppWrapper appInst) {
+                    app = appInst;
+                    return true;
+                }
+                control = control.Parent is Control nextControl ? nextControl : null;
+            }
+            app = null;
+            return false;
+        }
+
+        private void ExportItem_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem) {
+                foreach (var control in menuItem.Items) {
+                    if (control is MenuItem subItem) {
+                        subItem.IsEnabled = TryGetCurrentApp(out _);
+                    }
+                }
+            }
         }
     }
 }
