@@ -50,7 +50,7 @@ public partial class LevelPreviewer : UserControl {
                                     if (img != null) {
                                         Image imgControl = new Image();
                                         imgControl.Stretch = Stretch.Fill;
-                                        imgControl.Source = new Bitmap(new MemoryStream(img.Data));
+                                        imgControl.Source = img.GetBitmap();
                                         imgControl.Width = Math.Abs(layerObject.Width);
                                         imgControl.Height = Math.Abs(layerObject.Height);
                                         LevelCanvas.Children.Add(imgControl);

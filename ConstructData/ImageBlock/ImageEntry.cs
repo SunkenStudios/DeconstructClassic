@@ -1,4 +1,6 @@
-﻿using DeconstructClassic.Memory;
+﻿using Avalonia.Media.Imaging;
+using DeconstructClassic.Memory;
+using System.IO;
 using System.Numerics;
 
 namespace DeconstructClassic.ConstructData.ImageBlock {
@@ -26,6 +28,14 @@ namespace DeconstructClassic.ConstructData.ImageBlock {
             CollisionMaskHeight = reader.ReadInt();
             CollisionMaskPitch = reader.ReadInt();
             CollisionMaskData = reader.ReadBytes(CollisionMaskPitch * CollisionMaskHeight);
+        }
+
+        private Bitmap? _bitmap;
+        public Bitmap GetBitmap() {
+            if (_bitmap == null) {
+                _bitmap = new Bitmap(new MemoryStream(Data));
+            }
+            return _bitmap;
         }
     }
 }
