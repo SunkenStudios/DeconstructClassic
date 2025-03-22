@@ -3,6 +3,7 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
 using DeconstructClassic.ConstructData.AppBlock;
+using DeconstructClassic.ConstructData.HlslBlock;
 using DeconstructClassic.ConstructData.ImageBlock;
 using DeconstructClassic.ConstructData.LevelBlock;
 using DeconstructClassic.Memory;
@@ -107,6 +108,7 @@ namespace DeconstructClassic {
                         ReadImageBank(executable, appItem, app);
                         ReadSounds(executable, appItem, app);
                         ReadLayouts(executable, appItem, app);
+                        ReadShaders(executable, app);
                         ReadDLLs(executable, app);
                     }
                     break;
@@ -251,6 +253,13 @@ namespace DeconstructClassic {
                 layouts.Header = "Layouts (0)";
                 appItem.Items.Add(layouts);
                 return layouts;
+            }
+        }
+
+        private void ReadShaders(PortableExecutable PE, AppWrapper app) {
+            if (TryReadResource(PE, ResourceCodes.HLSL, out Resource AppResource)) {
+                ShaderBank shaderBank = new ShaderBank(new ByteReader(AppResource.Data));
+                app.ShaderBank = shaderBank;
             }
         }
 

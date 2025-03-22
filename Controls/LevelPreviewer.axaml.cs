@@ -5,6 +5,7 @@ using DeconstructClassic.ConstructData.ImageBlock;
 using DeconstructClassic.ConstructData.LevelBlock;
 using DeconstructClassic.ConstructData.ObjectTypes;
 using DeconstructClassic.Memory;
+using System;
 using System.Diagnostics;
 using System.IO;
 
@@ -50,8 +51,8 @@ public partial class LevelPreviewer : UserControl {
                                         Image imgControl = new Image();
                                         imgControl.Stretch = Stretch.Fill;
                                         imgControl.Source = new Bitmap(new MemoryStream(img.Data));
-                                        imgControl.Width = layerObject.Width;
-                                        imgControl.Height = layerObject.Height;
+                                        imgControl.Width = Math.Abs(layerObject.Width);
+                                        imgControl.Height = Math.Abs(layerObject.Height);
                                         LevelCanvas.Children.Add(imgControl);
                                         Canvas.SetLeft(imgControl, layerObject.Position.X - img.Hotspot.X * (layerObject.Width / imgControl.Source.Size.Width));
                                         Canvas.SetTop(imgControl, layerObject.Position.Y - img.Hotspot.Y * (layerObject.Height / imgControl.Source.Size.Height));

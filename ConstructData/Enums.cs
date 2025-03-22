@@ -62,5 +62,20 @@
             NoRotation,
             NAngles
         }
+
+        public enum DisableShaderWhen {
+            NoSetting,
+            PS20Unavailable,
+            PS20Available,
+            PS14Unavailable,
+            PS14Available,
+            PS11Unavailable,
+            PS11Available
+        }
+
+        public enum EffectParameterType {
+            Float = 5,
+            Percentage = 9
+        }
     }
 }
