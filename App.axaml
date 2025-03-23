@@ -9,4 +9,9 @@
 		<semi:SemiTheme />
       <StyleInclude Source="avares://Semi.Avalonia.DataGrid/Index.axaml" />
     </Application.Styles>
+    <Application.Resources>
+        <FontFamily x:Key="System">avares://DeconstructClassic/Fonts#System</FontFamily>
+        <FontFamily x:Key="Terminal">avares://DeconstructClassic/Fonts#Terminal</FontFamily>
+        <FontFamily x:Key="Fixedsys">avares://DeconstructClassic/Fonts#Fixedsys</FontFamily>
+    </Application.Resources>
 </Application>

@@ -1,4 +1,5 @@
 ﻿using Avalonia;
+using Avalonia.Fonts.Inter;
 using Avalonia.Media;
 using Projektanker.Icons.Avalonia;
 using Projektanker.Icons.Avalonia.FontAwesome;

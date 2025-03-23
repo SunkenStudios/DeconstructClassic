@@ -1,4 +1,6 @@
-﻿namespace DeconstructClassic.ConstructData {
+﻿using System;
+
+namespace DeconstructClassic.ConstructData {
     public class Enums {
         public enum FPSMode {
             VSync,
@@ -76,6 +78,18 @@
         public enum EffectParameterType {
             Float = 5,
             Percentage = 9
+        }
+
+        public enum TextHorizontalAlignment {
+            Left,
+            Center,
+            Right
+        }
+
+        public enum TextVerticalAlignment {
+            Top,
+            Center,
+            Bottom
         }
     }
 }

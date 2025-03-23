@@ -33,6 +33,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Fonts\Fixedsys.ttf" />
+    <None Remove="Fonts\System.ttf" />
+    <None Remove="Fonts\Terminal.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="Fonts\Fixedsys.ttf" />
+    <AvaloniaResource Include="Fonts\System.ttf" />
+    <AvaloniaResource Include="Fonts\Terminal.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="F:\repos\DeconstructClassic\.editorconfig" />
   </ItemGroup>
 </Project>
